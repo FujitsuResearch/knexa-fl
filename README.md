@@ -73,5 +73,3 @@ Generating federation splits (optional)
   - The script writes JSON lists to `artifacts/data/splits/`: `client_Ci_train.json`, `client_Ci_val.json`, and `global_test.json`.
 - The resulting counts follow `artifacts/roster/client_roster.json` and the non‑IID Dirichlet α = 0.1 policy. The script fails clearly if the input pool is insufficient.
 
-Citation
-- If you use this release, please cite the AAAI‑2026 paper as specified in the camera‑ready manuscript.
