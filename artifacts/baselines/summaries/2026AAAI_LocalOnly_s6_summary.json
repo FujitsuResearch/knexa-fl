@@ -1,0 +1,21 @@
+{
+  "experiment_time": 120000.0,
+  "num_rounds": 12,
+  "num_clients": 6,
+  "method": "LocalOnly",
+  "success": true,
+  "final_metrics": {
+    "global_performance": 0.0,
+    "convergence_round": null,
+    "total_communication_mb": 0.0,
+    "average_transfer_quality": 0,
+    "fairness_gini": 0.0,
+    "codebleu": 0.260
+  },
+  "pass_at_k_metrics": {
+    "pass@1": { "final": 0.0222, "improvement": null, "history": [] },
+    "pass@5": { "final": 0.0542, "improvement": null, "history": [] },
+    "pass@10": { "final": 0.0555, "improvement": null, "history": [] }
+  },
+  "codebleu_metrics": {}
+}

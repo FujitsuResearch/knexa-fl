@@ -1,0 +1,1 @@
+2026-01-15 10:10:10,000 - KNEXA-FL - INFO - ✅ FINAL_PASS_AT_K completed in 950.00s (clients_evaluated=6, average_pass_at_k={'pass@1': 0.13333333333333333, 'pass@5': 0.3125, 'pass@10': 0.4444, 'codebleu': 0.344})

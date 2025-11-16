@@ -1,0 +1,58 @@
+{
+  "num_clients": 6,
+  "dirichlet_alpha": 0.1,
+  "clients": [
+    {
+      "id": "C0",
+      "backbone": "Qwen/Qwen1.5-0.5B",
+      "train_samples": 45,
+      "val_samples": 12,
+      "seed": 42,
+      "lora_rank": 8
+    },
+    {
+      "id": "C1",
+      "backbone": "cerebras/Cerebras-GPT-590M",
+      "train_samples": 43,
+      "val_samples": 11,
+      "seed": 43,
+      "lora_rank": 8
+    },
+    {
+      "id": "C2",
+      "backbone": "bigscience/bloom-560m",
+      "train_samples": 44,
+      "val_samples": 12,
+      "seed": 44,
+      "lora_rank": 8
+    },
+    {
+      "id": "C3",
+      "backbone": "EleutherAI/pythia-410m",
+      "train_samples": 46,
+      "val_samples": 12,
+      "seed": 45,
+      "lora_rank": 8
+    },
+    {
+      "id": "C4",
+      "backbone": "Qwen/Qwen1.5-0.5B",
+      "train_samples": 54,
+      "val_samples": 14,
+      "seed": 46,
+      "lora_rank": 8,
+      "duplicate_of": "C0"
+    },
+    {
+      "id": "C5",
+      "backbone": "cerebras/Cerebras-GPT-590M",
+      "train_samples": 44,
+      "val_samples": 11,
+      "seed": 47,
+      "lora_rank": 8,
+      "duplicate_of": "C1"
+    }
+  ],
+  "notes": "C4 duplicates C0 backbone; C5 duplicates C1 backbone. Each duplicate is a distinct endpoint with an independent LoRA adapter, seed, and disjoint non‑IID data partition."
+}
+

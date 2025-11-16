@@ -1,0 +1,21 @@
+{
+  "experiment_time": 200000.0,
+  "num_rounds": 20,
+  "num_clients": 6,
+  "method": "Heuristic-P2P",
+  "success": true,
+  "final_metrics": {
+    "global_performance": 0.0,
+    "convergence_round": null,
+    "total_communication_mb": 0.0,
+    "average_transfer_quality": 0,
+    "fairness_gini": 0.0,
+    "codebleu": 0.392
+  },
+  "pass_at_k_metrics": {
+    "pass@1": { "final": 0.0667, "improvement": null, "history": [] },
+    "pass@5": { "final": 0.1667, "improvement": null, "history": [] },
+    "pass@10": { "final": 0.2778, "improvement": null, "history": [] }
+  },
+  "codebleu_metrics": {}
+}
