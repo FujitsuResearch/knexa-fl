@@ -5,6 +5,8 @@ This directory provides reference code and artifacts used to reproduce the core 
 - Title: “Learning to Collaborate: An Orchestrated‑Decentralized Framework for Peer‑to‑Peer LLM Federation”
 - Venue: AAAI‑2026 (camera‑ready)
 
+Please refer the file KNEXA_FL_Supplementary_Material.pdf for the supplementary material draft of the main paper KNEXA_FL_Main.pdf :)
+
 Active maintenance and citation
 - Maintainer: Inderjeet Singh (corresponding author). This release will be updated as we finalize ablations and additional analyses; minor version bumps may appear as new experiments are integrated.
 - Citation: If you build on this code or artifacts, please cite the paper as indicated in the camera‑ready version.
