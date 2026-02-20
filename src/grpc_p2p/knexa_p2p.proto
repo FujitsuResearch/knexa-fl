@@ -1,0 +1,329 @@
+syntax = "proto3";
+
+package knexa_p2p;
+
+// Core P2P Knowledge Exchange Service
+service KnexaP2PService {
+    // Establish secure P2P channel with ECDH key exchange
+    rpc EstablishSecureChannel(ChannelEstablishRequest) returns (ChannelEstablishResponse);
+    
+    // Adaptive Knowledge Distillation - streaming logits
+    rpc TransferKnowledgeDistillation(stream KnowledgeDistillationRequest) returns (stream KnowledgeDistillationResponse);
+    
+    // PEFT Module Exchange - parameter deltas
+    rpc TransferPEFTModule(PEFTModuleRequest) returns (PEFTModuleResponse);
+    
+    // Heartbeat for peer availability
+    rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+    
+    // Performance feedback after knowledge exchange
+    rpc ReportPerformance(PerformanceReport) returns (PerformanceAck);
+}
+
+// Central Profiler/Matchmaker (CPM) Service - Non-Aggregating
+service CPMService {
+    // Peer registration and capability advertisement
+    rpc RegisterPeer(PeerRegistration) returns (PeerRegistrationResponse);
+    
+    // Profile updates from peers
+    rpc UpdateProfile(ProfileUpdate) returns (ProfileUpdateResponse);
+    
+    // Matchmaking decisions using LinUCB bandit
+    rpc RequestMatching(MatchingRequest) returns (MatchingResponse);
+    
+    // Trust and policy management
+    rpc UpdateTrustScore(TrustUpdate) returns (TrustUpdateResponse);
+    
+    // Policy enforcement and governance
+    rpc EnforcePolicy(PolicyRequest) returns (PolicyResponse);
+    
+    // Service discovery for peer location
+    rpc DiscoverPeers(PeerDiscoveryRequest) returns (PeerDiscoveryResponse);
+}
+
+// Secure Channel Establishment Messages
+message ChannelEstablishRequest {
+    string peer_id = 1;
+    string public_key = 2;  // ECDH public key (base64 encoded)
+    int64 timestamp = 3;
+    string nonce = 4;
+    string signature = 5;   // Digital signature for authentication
+}
+
+message ChannelEstablishResponse {
+    bool success = 1;
+    string public_key = 2;  // CPM's ECDH public key
+    string session_id = 3;
+    int64 expiry = 4;
+    string error_message = 5;
+    string signature = 6;
+}
+
+// Knowledge Distillation Messages
+message KnowledgeDistillationRequest {
+    string session_id = 1;
+    string sender_id = 2;
+    string receiver_id = 3;
+    int32 round_id = 4;
+    
+    // Encrypted knowledge payload
+    bytes encrypted_logits = 5;  // AES-GCM encrypted logits
+    bytes encryption_nonce = 6;
+    
+    // Metadata
+    repeated string query_ids = 7;
+    float temperature = 8;
+    float alpha = 9;
+    
+    // Privacy measures
+    float dp_epsilon = 10;
+    float dp_delta = 11;
+    float sier_score = 12;
+}
+
+message KnowledgeDistillationResponse {
+    bool success = 1;
+    string session_id = 2;
+    int32 processed_queries = 3;
+    float validation_loss = 4;
+    string error_message = 5;
+}
+
+// PEFT Module Exchange Messages
+message PEFTModuleRequest {
+    string session_id = 1;
+    string sender_id = 2;
+    string receiver_id = 3;
+    int32 round_id = 4;
+    
+    // Encrypted PEFT delta
+    bytes encrypted_delta = 5;  // AES-GCM encrypted parameter deltas
+    bytes encryption_nonce = 6;
+    
+    // Metadata
+    string module_type = 7;  // "dora", "lora", etc.
+    int32 rank = 8;
+    repeated string target_modules = 9;
+    float lambda_weight = 10;
+    
+    // Transformation parameters
+    bytes transformation_params = 11;
+    
+    // Privacy measures
+    float dp_epsilon = 12;
+    float dp_delta = 13;
+}
+
+message PEFTModuleResponse {
+    bool success = 1;
+    string session_id = 2;
+    float integration_loss = 3;
+    int32 parameters_updated = 4;
+    string error_message = 5;
+}
+
+// Heartbeat Messages
+message HeartbeatRequest {
+    string peer_id = 1;
+    int64 timestamp = 2;
+    string status = 3;  // "active", "busy", "idle"
+    float cpu_usage = 4;
+    float memory_usage = 5;
+    float gpu_usage = 6;
+}
+
+message HeartbeatResponse {
+    bool alive = 1;
+    int64 timestamp = 2;
+    string cpm_status = 3;
+}
+
+// Performance Reporting Messages
+message PerformanceReport {
+    string session_id = 1;
+    string peer_id = 2;
+    int32 round_id = 3;
+    
+    // Performance metrics
+    float pre_performance = 4;
+    float post_performance = 5;
+    float delta_performance = 6;
+    
+    // Communication metrics
+    float transfer_time = 7;
+    int64 bytes_transferred = 8;
+    float compression_ratio = 9;
+    
+    // Trust and quality metrics
+    float trust_score = 10;
+    float collaboration_quality = 11;
+    float sier_exposure = 12;
+}
+
+message PerformanceAck {
+    bool acknowledged = 1;
+    int64 timestamp = 2;
+}
+
+// CPM Service Messages
+message PeerRegistration {
+    string peer_id = 1;
+    string endpoint = 2;  // "ip:port"
+    string public_key = 3;
+    
+    // Capability information
+    string model_family = 4;
+    string model_name = 5;
+    int32 model_size_mb = 6;
+    string architecture_type = 7;
+    repeated string supported_modules = 8;
+    
+    // Resource information
+    string device_info = 9;
+    float available_memory = 10;
+    float compute_capacity = 11;
+    
+    int64 timestamp = 12;
+}
+
+message PeerRegistrationResponse {
+    bool success = 1;
+    string peer_id = 2;
+    string error_message = 3;
+    repeated string policies = 4;
+    int64 heartbeat_interval = 5;
+}
+
+// Profile Update Messages
+message ProfileUpdate {
+    string peer_id = 1;
+    int32 round_id = 2;
+    
+    // Performance metrics (context vector components)
+    repeated float context_vector = 3;  // 32-dimensional context vector
+    
+    // Dynamic features
+    float local_performance = 4;
+    float transfer_performance = 5;
+    float global_performance = 6;
+    float trust_score = 7;
+    float learning_rate = 8;
+    float collaboration_quality = 9;
+    float communication_efficiency = 10;
+    
+    // Data characteristics
+    map<string, float> data_distribution = 11;
+    map<string, float> difficulty_distribution = 12;
+    float specialization_score = 13;
+    
+    // Historical features
+    string performance_trend = 14;  // "improving", "stable", "declining"
+    repeated string recent_collaborations = 15;
+    
+    int64 timestamp = 16;
+}
+
+message ProfileUpdateResponse {
+    bool success = 1;
+    string error_message = 2;
+    int64 timestamp = 3;
+}
+
+// Matchmaking Messages
+message MatchingRequest {
+    repeated string available_peers = 1;
+    int32 round_id = 2;
+    int32 max_pairs = 3;
+    map<string, float> system_constraints = 4;
+    int64 timestamp = 5;
+}
+
+message MatchingResponse {
+    bool success = 1;
+    repeated PeerPairing pairings = 2;
+    string error_message = 3;
+    int64 timestamp = 4;
+}
+
+message PeerPairing {
+    string student_id = 1;
+    string teacher_id = 2;
+    string exchange_type = 3;  // "knowledge_distillation", "peft_exchange"
+    
+    // Knowledge Distillation parameters
+    float alpha = 4;
+    float temperature = 5;
+    repeated string query_samples = 6;
+    
+    // PEFT Exchange parameters
+    float lambda_weight = 7;
+    bytes transformation_params = 8;
+    
+    // Quality metrics
+    float expected_reward = 9;
+    float confidence_score = 10;
+    int32 priority = 11;
+}
+
+// Trust Management Messages
+message TrustUpdate {
+    string peer_id = 1;
+    string partner_id = 2;
+    float trust_delta = 3;
+    string interaction_type = 4;
+    float performance_gain = 5;
+    string reason = 6;
+    int64 timestamp = 7;
+}
+
+message TrustUpdateResponse {
+    bool success = 1;
+    float new_trust_score = 2;
+    string error_message = 3;
+}
+
+// Policy Management Messages
+message PolicyRequest {
+    string peer_id = 1;
+    string policy_type = 2;  // "privacy", "security", "governance"
+    bytes policy_data = 3;
+    string action = 4;  // "check", "enforce", "update"
+    int64 timestamp = 5;
+}
+
+message PolicyResponse {
+    bool compliant = 1;
+    bool action_taken = 2;
+    string violation_details = 3;
+    repeated string recommendations = 4;
+    string error_message = 5;
+}
+
+// Service Discovery Messages
+message PeerDiscoveryRequest {
+    string requester_id = 1;
+    repeated string capabilities_needed = 2;
+    string model_family_preference = 3;
+    float min_trust_score = 4;
+    int32 max_results = 5;
+    int64 timestamp = 6;
+}
+
+message PeerDiscoveryResponse {
+    bool success = 1;
+    repeated PeerInfo available_peers = 2;
+    string error_message = 3;
+    int64 timestamp = 4;
+}
+
+message PeerInfo {
+    string peer_id = 1;
+    string endpoint = 2;
+    string model_family = 3;
+    string model_name = 4;
+    float trust_score = 5;
+    repeated string capabilities = 6;
+    string status = 7;  // "available", "busy", "offline"
+    float performance_rating = 8;
+    int64 last_seen = 9;
+}

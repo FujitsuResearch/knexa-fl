@@ -1,0 +1,17 @@
+# KNEXA-FL P2P gRPC Dependencies
+# Core gRPC and Protocol Buffers
+grpcio>=1.60.0
+grpcio-tools>=1.60.0
+protobuf>=4.25.0
+
+# Cryptography for ECDH and AES-GCM
+cryptography>=41.0.0
+
+# Async support
+grpcio-status>=1.60.0
+grpcio-reflection>=1.60.0
+
+# Additional dependencies
+scipy>=1.11.0  # For Jensen-Shannon divergence in context builder
+asyncio-mqtt>=0.13.0  # For potential MQTT integration
+pydantic>=2.0.0  # For data validation

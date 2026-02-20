@@ -1,0 +1,94 @@
+# Example KNEXA-FL Run Configuration
+# Demonstrates a 6-agent heterogeneous federation
+
+# Run metadata
+run_id: "example_heterogeneous_federation"
+description: "Example configuration for heterogeneous LLM federation with 6 agents"
+
+# Federation setup
+federation:
+  num_agents: 6
+  rounds: 20
+  pairs_per_round: 3
+
+# Agent specifications
+agents:
+  - id: "agent_0"
+    model_family: "qwen"
+    model_size_mb: 950
+    dataset_size: 50
+    specialization: "general"
+    
+  - id: "agent_1"
+    model_family: "cerebras"
+    model_size_mb: 1180
+    dataset_size: 45
+    specialization: "code"
+    
+  - id: "agent_2"
+    model_family: "bloom"
+    model_size_mb: 1120
+    dataset_size: 48
+    specialization: "math"
+    
+  - id: "agent_3"
+    model_family: "pythia"
+    model_size_mb: 820
+    dataset_size: 52
+    specialization: "general"
+    
+  - id: "agent_4"
+    model_family: "qwen"
+    model_size_mb: 950
+    dataset_size: 55
+    specialization: "code"
+    
+  - id: "agent_5"
+    model_family: "cerebras"
+    model_size_mb: 1180
+    dataset_size: 46
+    specialization: "math"
+
+# Dataset configuration
+dataset:
+  type: "code_generation"
+  train_test_split: 0.75
+  transfer_set_size: 128
+  distribution: "dirichlet"  # Non-IID distribution
+  dirichlet_alpha: 0.1
+
+# Override default parameters for this run
+overrides:
+  agent:
+    training:
+      batch_size: 4  # Smaller batch for memory constraints
+      local_epochs: 2
+  knowledge_distillation:
+    alpha_kd: 0.4  # Slightly lower KD weight
+    quality_threshold: 0.25
+  cpm:
+    max_pairs_per_round: 3  # Match federation setting
+
+# Evaluation settings
+evaluation:
+  metrics:
+    - "pass@1"
+    - "pass@5"
+    - "pass@10"
+    - "code_bleu"
+  test_samples: 100
+  checkpoint_rounds: [5, 10, 15, 20]
+
+# Resource constraints
+resources:
+  gpus_available: 2
+  memory_per_gpu: 16  # GB
+  max_parallel_agents: 3
+
+# Logging configuration
+logging:
+  level: "INFO"
+  save_logs: true
+  log_dir: "./logs/example_run"
+  track_gradients: false
+  track_activations: false

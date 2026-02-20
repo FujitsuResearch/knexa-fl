@@ -1,0 +1,91 @@
+# KNEXA-FL Default Configuration
+# This configuration demonstrates the framework settings
+
+# CPM (Central Profiler/Matchmaker) Configuration
+cpm:
+  max_pairs_per_round: 10
+  context_dimension: 32
+  privacy:
+    k_anonymity: 3
+    dp_epsilon: 1.0
+    dp_delta: 1e-5
+    noise_scale: 0.1
+  linucb:
+    lambda_param: 1.0
+    beta0: 1.0
+
+# Agent Configuration
+agent:
+  # PEFT/LoRA settings
+  lora:
+    rank: 16
+    alpha: 32
+    dropout: 0.1
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+  
+  # Training settings
+  training:
+    learning_rate: 3e-5
+    batch_size: 8
+    gradient_accumulation_steps: 1
+    local_epochs: 3
+    max_sequence_length: 512
+    clip_grad_norm: 1.0
+  
+  # Privacy settings
+  privacy:
+    clip_norm: 1.0
+    noise_multiplier: 0.1
+    sier_threshold: 0.01
+    sensitive_patterns:
+      - "password"
+      - "api_key"
+      - "secret"
+      - "token"
+      - "ssn"
+      - "credit_card"
+
+# Knowledge Distillation Configuration
+knowledge_distillation:
+  temperature: 2.0
+  alpha_kd: 0.5
+  generation:
+    max_length: 256
+    temperature: 0.8
+    top_p: 0.9
+    top_k: 50
+  quality_threshold: 0.3
+  max_retries: 3
+
+# P2P Communication Settings
+p2p:
+  timeout: 30  # seconds
+  max_retry_attempts: 3
+  encryption: true
+  compression: true
+
+# Experiment Settings
+experiment:
+  seed: 42
+  num_rounds: 20
+  checkpoint_frequency: 5
+  metrics:
+    - "loss"
+    - "performance"
+    - "trust_score"
+    - "exchange_success_rate"
+
+# Model Registry (example configurations)
+models:
+  small:
+    families: ["gpt", "bloom", "pythia"]
+    size_range: [100, 500]  # MB
+    lora_rank: 8
+  medium:
+    families: ["qwen", "llama", "mistral"]
+    size_range: [500, 2000]  # MB
+    lora_rank: 16
+  large:
+    families: ["llama2", "falcon"]
+    size_range: [2000, 10000]  # MB
+    lora_rank: 32

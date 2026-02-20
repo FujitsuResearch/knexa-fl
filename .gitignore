@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.python
+.python-version
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# PyTorch & model artifacts
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.weights
+*.model
+*.onnx
+checkpoints/
+saved_models/
+pretrained_models/
+
+# HuggingFace cache
+.cache/
+huggingface/
+transformers_cache/
+hf-cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+trash/
+
+# Archives
+*.tar
+*.tar.gz
+*.tar.bz2
+*.zip
+*.rar
+*.7z
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+
+# Ray/Flower simulation artifacts
+ray_results/
+.ray/
+
+# Experiment run artifacts (generated at runtime)
+experimental_artifacts/
+test_artifacts/
+auto_generated_by_unified_system/
+
+# Simulation results (generated at runtime)
+simulations/linucb_cpm_validation/final_paper_results/
+simulations/linucb_cpm_validation/results/
