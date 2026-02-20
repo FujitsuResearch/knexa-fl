@@ -6,7 +6,7 @@ Inderjeet Singh, Eleonore Vissol-Gaudin, Andikan Otung, Motoyoshi Sekiya
 
 Fujitsu Research of Europe, Slough, United Kingdom
 
-Published at **AAAI 2026** (Camera-Ready)
+Published at **AAAI 2026** Main Track
 
 Paper: [KNEXA_FL_Main.pdf](KNEXA_FL_Main.pdf) | Supplementary: [KNEXA_FL_Supplementary_Material.pdf](KNEXA_FL_Supplementary_Material.pdf)
 

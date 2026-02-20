@@ -144,7 +144,8 @@ class GuardrailFilter:
                 filtered_outputs.append(output)
             else:
                 # Output filtered due to privacy concerns
-        
+                pass
+
         return filtered_outputs
     
     def apply_differential_privacy(self, 

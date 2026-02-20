@@ -46,8 +46,8 @@ class LinUCB:
         theta = self._theta()
         for i, j in itertools.combinations(range(len(profiles)), 2):
             ctx = np.concatenate([profiles[i], profiles[j]]).astype(np.float32).reshape(-1, 1)
-            mu = float(theta.T @ ctx)
-            conf = float(np.sqrt(ctx.T @ A_inv @ ctx))
+            mu = float((theta.T @ ctx).item())
+            conf = float(np.sqrt((ctx.T @ A_inv @ ctx).item()))
             ucb = mu + beta * conf
             candidates.append((ucb, i, j))
 

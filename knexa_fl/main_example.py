@@ -9,10 +9,10 @@ import numpy as np
 from typing import List, Dict, Any
 
 # Import core components
-from core.cpm.orchestrator import CPMOrchestrator
-from core.agents.agent import KnexaAgent, AgentConfig
-from core.p2p.knowledge_exchange import P2PKnowledgeExchange
-from core.cpm.privacy_profile import PrivacyParameters
+from .cpm.orchestrator import CPMOrchestrator
+from .agents.agent import KnexaAgent, AgentConfig
+from .p2p.knowledge_exchange import P2PKnowledgeExchange
+from .cpm.privacy_profile import PrivacyParameters
 
 def load_config(config_path: str) -> Dict[str, Any]:
     """Load configuration from YAML file"""

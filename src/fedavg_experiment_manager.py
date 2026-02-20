@@ -209,20 +209,20 @@ class FedAvgExperimentManager:
     
     def __init__(self, base_dir: str = "experimental_artifacts/baselines/fedavg/results"):
         self.base_dir = Path(base_dir)
-        self.base_dir.mkdir(exist_ok=True)
-        
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+
         # Directory structure
         self.runs_dir = self.base_dir / "runs"
-        self.runs_dir.mkdir(exist_ok=True)
-        
+        self.runs_dir.mkdir(parents=True, exist_ok=True)
+
         self.summary_dir = self.base_dir / "summaries"
-        self.summary_dir.mkdir(exist_ok=True)
-        
+        self.summary_dir.mkdir(parents=True, exist_ok=True)
+
         self.plots_dir = self.base_dir / "plots"
-        self.plots_dir.mkdir(exist_ok=True)
-        
+        self.plots_dir.mkdir(parents=True, exist_ok=True)
+
         self.reports_dir = self.base_dir / "reports"
-        self.reports_dir.mkdir(exist_ok=True)
+        self.reports_dir.mkdir(parents=True, exist_ok=True)
         
         # Load experiment registry
         self.registry_file = self.base_dir / "fedavg_registry.json"
